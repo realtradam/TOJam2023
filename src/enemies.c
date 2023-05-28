@@ -3,10 +3,12 @@
 #include "cglm/vec2.h"
 #include "player.h"
 #include "bullet.h"
+#include "wall.h"
 
 static rodeo_collision_2d_world_t collision_enemies_world = {0};
 static rodeo_texture_2d_t enemy_texture;
 static cvec_enemy_t enemies = {0};
+static float spawn_cooldown = 0;
 
 void
 init_enemies(void)
@@ -252,4 +254,30 @@ group_follow_target(rodeo_collision_2d_world_item_t *target)
 		enemy->dx = result[0];
 		enemy->dy = result[1];
 	}
+}
+
+enemy_t*
+random_enemy_create(
+	rodeo_rectangle_t bounds
+)
+{
+	float spawn_coords[2];
+	do {
+		spawn_coords[0] = (float)rodeo_random_double_get() * bounds.width + bounds.x;
+		spawn_coords[1] = (float)rodeo_random_double_get() * bounds.height + bounds.y;
+	} while (!coords_inside_wall(spawn_coords[0], spawn_coords[1]));
+	return spawn_enemy(spawn_coords[0], spawn_coords[1]);
+}
+
+enemy_t*
+attempt_random_enemy_spawn(
+	rodeo_rectangle_t bounds
+)
+{
+	spawn_cooldown += rodeo_frame_time_get();
+	if (spawn_cooldown <= 0) {
+		spawn_cooldown = (float)rodeo_random_double_get() * 5.0f + 1.5f;
+		return random_enemy_create(bounds);
+	}
+	return NULL;
 }

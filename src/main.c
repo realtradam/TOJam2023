@@ -190,6 +190,7 @@ main_loop(void)
 	   */
 
 	   enemies_attempt_weapon_fire();
+	   attempt_random_enemy_spawn((rodeo_rectangle_t){ 0, 0, window_width, window_height });
 
 	   move_bullets();
 	   move_enemies();
@@ -276,10 +277,10 @@ main(void)
 		init_player();
 		init_enemies();
 		init_wall();
-		spawn_enemy(240, 240);
+		//spawn_enemy(240, 240);
 		//spawn_enemy(100, 100);
-		spawn_enemy(300, 100);
-		spawn_enemy(200, 330);
+		//spawn_enemy(300, 100);
+		//spawn_enemy(200, 330);
 		new_wall(0, -10, window_width, 10);
 		new_wall(0, window_height, window_width, 10);
 		new_wall(-10, 0, 10, window_height);

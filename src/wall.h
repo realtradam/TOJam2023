@@ -16,3 +16,9 @@ new_wall(
     float width,
     float height
 );
+
+bool
+coords_inside_wall(
+    float x,
+    float y
+);

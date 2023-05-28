@@ -82,3 +82,13 @@ detect_bullet_enemy_collisions(void);
 
 void
 group_follow_target(rodeo_collision_2d_world_item_t *target);
+
+enemy_t*
+random_enemy_create(
+	rodeo_rectangle_t bounds
+);
+
+enemy_t*
+attempt_random_enemy_spawn(
+	rodeo_rectangle_t bounds
+);

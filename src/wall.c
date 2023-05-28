@@ -38,3 +38,18 @@ new_wall(
 				.height = height
 			});
 }
+
+bool
+coords_inside_wall(
+    float x,
+    float y
+)
+{
+	c_foreach(i, cvec_collision_2d_world_item, collision_wall_world) {
+		if (x >= i.ref->x && x <= i.ref->x + i.ref->width &&
+				y >= i.ref->y && y <= i.ref->y + i.ref->height) {
+			return true;
+		}
+	}
+	return false;
+}
